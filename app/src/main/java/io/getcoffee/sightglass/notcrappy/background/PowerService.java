@@ -10,8 +10,6 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import java.util.TimerTask;
-
 import io.getcoffee.sightglass.notcrappy.NotCrappyApplication;
 
 /**
@@ -24,11 +22,12 @@ public class PowerService extends Service {
     }
 
     public static final String SERVICE_TAG = "PowerService";
+    public static final String EXTRA_VOLTAGE = "voltage";
 
     protected BatteryManager batteryManager;
     protected ChargingBroadcastReceiver chargingListener;
     private PowerStatus powerStatus = PowerStatus.DISCONNECTED;
-    private int voltage = -1;
+    private volatile int voltage = -1;
 
     @Override
     public void onCreate() {
@@ -77,7 +76,7 @@ public class PowerService extends Service {
         return batteryManager;
     }
 
-    protected void setBatteryManager(BatteryManager batteryManager) {
+    public void setBatteryManager(BatteryManager batteryManager) {
         this.batteryManager = batteryManager;
     }
 
@@ -85,8 +84,12 @@ public class PowerService extends Service {
         return voltage;
     }
 
-    protected void setVoltage(int voltage) {
+    public synchronized void updateVoltage(int voltage) {
         this.voltage = voltage;
+        Intent update = new Intent();
+        update.setAction(NotCrappyApplication.ACTION_BATTERY_UPDATE);
+        update.putExtra(PowerService.EXTRA_VOLTAGE, this.voltage);
+        sendBroadcast(update);
     }
 
     protected static class ChargingBroadcastReceiver extends BroadcastReceiver {
@@ -101,8 +104,13 @@ public class PowerService extends Service {
         public void onReceive(Context context, Intent intent) {
             switch(intent.getAction()) {
                 case Intent.ACTION_POWER_CONNECTED:
-                    powerService.setPowerStatus(PowerStatus.CONNECTED);
+                    int whichPlugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
                     Log.i(PowerService.SERVICE_TAG, "Got 'Power Connected' broadcast.");
+                    if(whichPlugged == BatteryManager.BATTERY_PLUGGED_USB) {
+                        powerService.setPowerStatus(PowerStatus.CONNECTED);
+                        new PowerAsyncTask(powerService).execute();
+                    }
+                    Log.i(PowerService.SERVICE_TAG, "Got charging type of " + ((whichPlugged == BatteryManager.BATTERY_PLUGGED_USB) ? "USB" : "AC"));
                     break;
                 case Intent.ACTION_POWER_DISCONNECTED:
                     powerService.setPowerStatus(PowerStatus.CONNECTED);
@@ -110,30 +118,6 @@ public class PowerService extends Service {
                     break;
                 default:
                     throw new IllegalStateException("ChargingBroadcastReceiver received unacceptable intent action.");
-            }
-        }
-    }
-
-    protected static class PowerTimerTask extends TimerTask {
-
-        public static final String TIMER_TASK_TAG = "PowerTimerTask";
-
-        private PowerService powerService;
-
-        public PowerTimerTask(PowerService powerService) {
-            this.powerService = powerService;
-        }
-
-        public void run() {
-            IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            Intent intent = powerService.registerReceiver(null, filter);
-            try {
-                int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
-                if (voltage > 0) {
-                    powerService.setVoltage(voltage);
-                }
-            } catch(NullPointerException ex) {
-                Log.wtf(PowerTimerTask.TIMER_TASK_TAG, Log.getStackTraceString(ex));
             }
         }
     }
