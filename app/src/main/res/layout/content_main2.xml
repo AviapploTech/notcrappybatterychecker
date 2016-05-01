@@ -11,14 +11,23 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.Main2Activity"
     tools:showIn="@layout/app_bar_main2">
+ <android.support.v7.widget.CardView
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:paddingBottom="@dimen/activity_vertical_margin"
+     android:paddingLeft="@dimen/activity_horizontal_margin"
+     android:paddingRight="@dimen/activity_horizontal_margin"
+     android:paddingTop="@dimen/activity_vertical_margin"
+     android:id="@+id/card_view">
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Power Info Goes Here"
+         android:id="@+id/textView"
+         android:layout_alignParentTop="true"
+         android:layout_alignParentStart="true" />
+ </android.support.v7.widget.CardView>
 
 
-    <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/gridView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:gravity="center"
-        android:textFilterEnabled="true" />
+
 </RelativeLayout>
