@@ -1,4 +1,4 @@
-package io.getcoffee.sightglass.notcrappy;
+package io.getcoffee.sightglass.notcrappy.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import io.getcoffee.sightglass.notcrappy.R;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
