@@ -16,6 +16,7 @@ import io.getcoffee.sightglass.notcrappy.background.PowerService;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static PowerService pService = new PowerService();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,9 @@ public class Main2Activity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText(PowerService.EXTRA_VOLTAGE);
+        textView.setText(pService.getVoltage());
+
+
     }
 
     @Override
@@ -84,5 +87,6 @@ public class Main2Activity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 }
