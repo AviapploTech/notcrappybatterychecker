@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import io.getcoffee.sightglass.notcrappy.R;
+import io.getcoffee.sightglass.notcrappy.background.PowerAsyncTask;
 import io.getcoffee.sightglass.notcrappy.background.PowerService;
 
 public class NavigationActivity extends AppCompatActivity
@@ -33,6 +34,7 @@ public class NavigationActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         PowerService pService = new PowerService();
+        PowerAsyncTask powerAsyncTask = new PowerAsyncTask(pService);
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText("voltage: " + pService.getVoltage() + "\n" + "Power Status: " + pService.getPowerStatus());
 
