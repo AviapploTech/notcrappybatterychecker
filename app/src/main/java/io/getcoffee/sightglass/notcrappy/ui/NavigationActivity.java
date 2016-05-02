@@ -14,13 +14,13 @@ import android.widget.TextView;
 import io.getcoffee.sightglass.notcrappy.R;
 import io.getcoffee.sightglass.notcrappy.background.PowerService;
 
-public class Main2Activity extends AppCompatActivity
+public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.navigation_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -34,7 +34,7 @@ public class Main2Activity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         PowerService pService = new PowerService();
         TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText(pService.getVoltage());
+        textView.setText("voltage: " + pService.getVoltage() + "\n" + "Power Status: " + pService.getPowerStatus());
 
 
     }

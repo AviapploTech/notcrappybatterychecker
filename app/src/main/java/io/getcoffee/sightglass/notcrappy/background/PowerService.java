@@ -17,17 +17,12 @@ import io.getcoffee.sightglass.notcrappy.NotCrappyApplication;
  */
 public class PowerService extends Service {
 
-    public enum PowerStatus {
-        CONNECTED,DISCONNECTED;
-    }
-
     public static final String SERVICE_TAG = "PowerService";
     public static final String EXTRA_VOLTAGE = "voltage";
-
     protected BatteryManager batteryManager;
     protected ChargingBroadcastReceiver chargingListener;
     private PowerStatus powerStatus = PowerStatus.DISCONNECTED;
-    private volatile int voltage = -1;
+    private volatile double voltage = -1;
 
     @Override
     public void onCreate() {
@@ -35,7 +30,6 @@ public class PowerService extends Service {
     }
 
     /**
-     *
      * @param intent
      * @return null
      * PowerService shouldn't be bound to
@@ -80,8 +74,8 @@ public class PowerService extends Service {
         this.batteryManager = batteryManager;
     }
 
-    public int getVoltage() {
-        return voltage;
+    public String getVoltage() {
+        return voltage + "";
     }
 
     public synchronized void updateVoltage(int voltage) {
@@ -90,6 +84,10 @@ public class PowerService extends Service {
         update.setAction(NotCrappyApplication.ACTION_BATTERY_UPDATE);
         update.putExtra(PowerService.EXTRA_VOLTAGE, this.voltage);
         sendBroadcast(update);
+    }
+
+    public enum PowerStatus {
+        CONNECTED, DISCONNECTED
     }
 
     protected static class ChargingBroadcastReceiver extends BroadcastReceiver {
