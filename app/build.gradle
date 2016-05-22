@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 23
+    compileSdkVersion 'android-N'
     buildToolsVersion '24.0.0 rc4'
     defaultConfig {
         applicationId "io.getcoffee.sightglass.notcrappy"
