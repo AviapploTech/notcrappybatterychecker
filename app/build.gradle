@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "io.getcoffee.sightglass.notcrappy"
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 'N'
         versionCode 1
         versionName "1.0"
     }
