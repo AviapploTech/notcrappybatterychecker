@@ -4,5 +4,6 @@
     <plugin id="com.civ.androidStringsTools" />
     <plugin id="org.jetbrains.android" />
     <plugin id="org.jetbrains.plugins.github" />
+    <plugin id="org.jetbrains.plugins.gradle" />
   </component>
 </project>
