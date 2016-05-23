@@ -19,7 +19,7 @@
             android:name=".ui.NavigationActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar">
-            <!-- ATTENTION: This intent was auto-generated. Follow instructions at
+           <!-- ATTENTION: This intent was auto-generated. Follow instructions at
   https://g.co/AppIndexing/AndroidStudio to publish your URLs. -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
