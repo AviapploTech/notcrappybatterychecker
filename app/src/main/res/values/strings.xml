@@ -7,5 +7,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="text">Test</string>
+    <string name="headernavtext1">Android Studio</string>
+    <string name="headerimgdescrip">Logo</string>
 
 </resources>
