@@ -37,4 +37,7 @@ dependencies {
     compile 'com.android.support:palette-v7:23.4.0'
     compile 'org.junit:junit-gradle:5.0.0-ALPHA'
     compile 'org.junit:junit-commons:5.0.0-ALPHA'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.android.support:leanback-v17:23.4.0'
+    compile 'com.google:google:5'
 }
