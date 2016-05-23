@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 'Google Inc.:Google APIs:23'
+    compileSdkVersion 23
     buildToolsVersion '24.0.0 rc4'
     defaultConfig {
         applicationId "io.getcoffee.sightglass.notcrappy"
@@ -25,7 +25,6 @@ android {
 
 dependencies {
     compile 'junit:junit:4.12'
-    compile 'com.google.android.gms:play-services:9.0.0'
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:support-annotations:23.4.0'
     compile 'com.android.support:appcompat-v7:23.4.0'
